@@ -8,7 +8,7 @@ const tokenize = doken.createTokenizer({
       lineBreaks: true,
       value: (match: RegExpExecArray) => ({ flag: match[1], value: match[2] }),
     }),
-    doken.regexRule('valueShortFlag', /-([a-zA-Z0-9]{1,2})=([\S]+)/y, {
+    doken.regexRule('valueShortFlag', /-([a-zA-Z0-9]{1,2})=([^ ]+)/y, {
       value: (match: RegExpExecArray) => ({ flag: match[1], value: match[2] }),
     }),
     doken.regexRule('shortFlag', /-([a-zA-Z0-9]{1,2})/y, {
@@ -20,7 +20,7 @@ const tokenize = doken.createTokenizer({
       lineBreaks: true,
       value: (match: RegExpExecArray) => ({ flag: match[1], value: match[2] }),
     }),
-    doken.regexRule('valueLongFlag', /--([a-zA-Z0-9-]+)=([\S]+)/y, {
+    doken.regexRule('valueLongFlag', /--([a-zA-Z0-9-]+)=([^ ]+)/y, {
       value: (match: RegExpExecArray) => ({ flag: match[1], value: match[2] }),
     }),
     doken.regexRule('longFlag', /--([a-zA-Z0-9-]+)/y, {
@@ -28,7 +28,7 @@ const tokenize = doken.createTokenizer({
     }),
 
     // Arguments //
-    doken.regexRule('argument', /[^"'\s]+/y, {
+    doken.regexRule('argument', /[^"' ]+/y, {
       condition: (match: RegExpExecArray) => !/['"]/.test(match[0]),
     }),
     doken.regexRule('quotedArgument', /(?<!\\)["']((?:[^"']|\\"|\\')+)(?<!\\)["']/y, {
@@ -41,7 +41,7 @@ const tokenize = doken.createTokenizer({
   strategy: 'first',
 });
 
-export const parseCommand = (
+export default (
   prefix: string,
   message: string
 ): {
@@ -49,7 +49,7 @@ export const parseCommand = (
   command: string;
   args: Array<string>;
   flags: {
-    [name: string]: string | boolean;
+    [name: string]: string | true;
   };
   eval: string;
 } => {
@@ -69,7 +69,7 @@ export const parseCommand = (
     command: string;
     args: Array<string>;
     flags: {
-      [name: string]: string | boolean;
+      [name: string]: string | true;
     };
     eval: string;
   } = {
@@ -102,3 +102,5 @@ export const parseCommand = (
 
   return ret;
 };
+
+console.log(exports.default('exprt ', 'exprthi there -f'));

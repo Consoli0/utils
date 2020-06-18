@@ -2,15 +2,16 @@ type BitFieldResolvable = number | BitField | Array<number | BitField>;
 type IndexResolvable = number | Array<number>;
 
 export default class BitField {
-  val: number = 0b0;
+  val: number = 0;
 
   has(index: number): boolean {
     return (this.val & index) === index;
   }
 
-  flip(index: IndexResolvable): void {
+  flip(index: IndexResolvable): this {
     if (Array.isArray(index)) index.forEach((i: number) => this._flip(i));
     else this._flip(index);
+    return this;
   }
 
   set(index: IndexResolvable, value: boolean = true): this {

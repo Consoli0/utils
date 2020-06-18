@@ -1,23 +1,3 @@
-/*
-  0: Italic (serif)
-  1: Italic (sans)
-  2: Bold (serif)
-  3: Bold (sans)
-  4: Italic & Bold (serif)
-  5: Italic & Bold (sans)
-  6: Double Struck
-  7: Cursive
-  8: Cursive bold
-  9: Fullwidth
-  10: Small latin
-  11: Box
-  12: Bubble
-  13: Inverted Box (emoji letters)
-  14: Mideval
-  15: Mideval bold
-  16: Monospace
-*/
-
 export enum CHARACTER_REPLACEMENTS_ID {
   ITALIC_SERIF = 0,
   ITALIC_SANS = 1,
@@ -101,7 +81,7 @@ export const characterReplacements = {
   [letter: string]: Array<string> | number;
 };
 
-export enum INVISIBLE_ID {
+export enum SPACE_ID {
   SPACE = 0, // Standard space // 1/4 em //
   NON_BREAKING_SPACE, // Standard space, will not be used in line break // 1/4 em //
   MONGOLIAN_VOWEL_SEPERATOR, // Zero width // 0 //
@@ -112,33 +92,18 @@ export enum INVISIBLE_ID {
   THREE_PER_EM_SPACE, // Thicc space // 1/3 em //
   FOUR_PER_EM_SPACE, // Mid space // 1/4 em //
   SIX_PER_EM_SPACE, // Thicc space // 1/3 em //
+  FIGURE_SPACE, // Digit width //
+  PUNCTUATION_SPACE, // Period width //
+  THIN_SPACE, // 1/5 or 1/6 em //
+  HAIR_SPACE, // Narrower than THIN_SPACE //
+  ZERO_WIDTH_SPACE, // 0 em //
+  NARROW_NO_BREAK_SPACE, // Typically the width of a thin space or a mid space // 1/4 em //
+  MEDIUM_MATHEMATICAL_SPACE, // 4/18 em //
+  IDEOGRAPHIC_SPACE, // Width of ideographic (CJK) characters //
+  ZERO_WIDTH_NO_BREAK_SPACE, // 0 em //
 }
 
-/*
-U+0020	SPACE	foo bar	Depends on font, typically 1/4 em, often adjusted
-U+00A0	NO-BREAK SPACE	foo bar	As a space, but often not adjusted
-U+1680	OGHAM SPACE MARK	foo bar	Unspecified; usually not really a space but a dash
-U+180E	MONGOLIAN VOWEL SEPARATOR	foo᠎bar	0
-U+2000	EN QUAD	foo bar	1 en (= 1/2 em)
-U+2001	EM QUAD	foo bar	1 em (nominally, the height of the font)
-U+2002	EN SPACE (nut)	foo bar	1 en (= 1/2 em)
-U+2003	EM SPACE (mutton)	foo bar	1 em
-U+2004	THREE-PER-EM SPACE (thick space)	foo bar	1/3 em
-U+2005	FOUR-PER-EM SPACE (mid space)	foo bar	1/4 em
-U+2006	SIX-PER-EM SPACE	foo bar	1/6 em
-U+2007	FIGURE SPACE	foo bar	“Tabular width”, the width of digits
-U+2008	PUNCTUATION SPACE	foo bar	The width of a period “.”
-U+2009	THIN SPACE	foo bar	1/5 em (or sometimes 1/6 em)
-U+200A	HAIR SPACE	foo bar	Narrower than THIN SPACE
-U+200B	ZERO WIDTH SPACE	foo​bar	0
-U+202F	NARROW NO-BREAK SPACE	foo bar	Narrower than NO-BREAK SPACE (or SPACE), “typically the width of a thin space or a mid space”
-U+205F	MEDIUM MATHEMATICAL SPACE	foo bar	4/18 em
-U+3000	IDEOGRAPHIC SPACE	foo　bar	The width of ideographic (CJK) characters.
-U+FEFF	ZERO WIDTH NO-BREAK SPACE	foo﻿bar	0
-
-*/
-
-export const invisible = [
+export const space = [
   '\u0020',
   '\u00A0',
   '\u180E',
@@ -159,9 +124,3 @@ export const invisible = [
   '\u3000',
   '\uFEFF',
 ];
-
-export const leet = {
-  a: ['@'],
-} as {
-  [letter: string]: Array<string>;
-};
