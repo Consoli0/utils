@@ -1,39 +1,36 @@
-export type FSMState = {
-  id: string;
-  description?: string;
-  targets: {
-    [state: string]: string;
-  };
+export type FSMState<StateName extends string> = {
+  id: StateName;
+  targets: Array<StateName>;
 };
 
-export type FSMStates = Array<FSMState>;
-export type FSMInternalStates = Map<string, FSMState>;
+export type FSMStates<StateName extends string> = Array<FSMState<StateName>>;
+export type FSMInternalStates<StateName extends string> = Map<StateName, FSMState<StateName>>;
 
-export class FiniteStateMachine {
-  #states: FSMInternalStates;
-  #state: string;
+export class FiniteStateMachine<StateName extends string> {
+  #states: FSMInternalStates<StateName>;
+  #state: StateName;
 
-  constructor(initial: string, states: FSMStates) {
+  constructor(initial: StateName, states: FSMStates<StateName>) {
     this.#states = new Map();
     states.forEach(state => this.#states.set(state.id, state));
     this.#state = initial;
   }
 
-  get state(): FSMState | null {
+  get state(): FSMState<StateName> | null {
     if (!this.#states.has(this.#state)) return null;
-    return <FSMState>this.#states.get(this.#state);
+    return <FSMState<StateName>>this.#states.get(this.#state);
   }
 
-  run(input: string): FSMState | null {
+  run(input: StateName): FSMState<StateName> | null {
     let state = this.state;
     if (!this.valid(input) || !state) return null;
-    this.#state = state.targets[input];
+    this.#state = input;
     return state;
   }
 
-  valid(input: string): boolean {
+  valid(input: StateName): boolean {
     let state = this.state;
     if (!state) return false;
-    return state.targets.hasOwnProperty(input);
+    return state.targets.includes(input);
   }
 }

@@ -20,6 +20,20 @@ export const spacify = (
   });
 };
 
+export const hillify = (
+  text: string,
+  options: { beginning: boolean; end: boolean } = { beginning: true, end: true }
+): string => {
+  let arr = text.split('');
+  let res: Array<Array<string>> = [arr];
+  arr.forEach((_, len) => {
+    let t = text.substr(0, arr.length - (len + 1)).split('');
+    if (options.beginning) res.unshift(t);
+    if (options.end) res.push(t);
+  });
+  return res.map(line => line.join('')).join('\n');
+};
+
 type CHARACTER_TYPE =
   | 'ITALIC_SERIF'
   | 'ITALIC_SANS'

@@ -102,5 +102,3 @@ export default (
 
   return ret;
 };
-
-console.log(exports.default('exprt ', 'exprthi there -f'));

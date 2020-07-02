@@ -1,6 +1,9 @@
 import { iteration } from '.';
 
-export const pipe = async <Type>(original: Type, ...functions: Array<(value: Type) => Type | Promise<Type>>): Promise<Type> => {
+export const pipe = async <Type>(
+  original: Type,
+  ...functions: Array<(value: Type) => Type | Promise<Type>>
+): Promise<Type> => {
   let value = original;
 
   await iteration.aForEach(functions, async fn => {
@@ -9,3 +12,5 @@ export const pipe = async <Type>(original: Type, ...functions: Array<(value: Typ
 
   return value;
 };
+
+export const mirror = <T>(input: T): T => input;
